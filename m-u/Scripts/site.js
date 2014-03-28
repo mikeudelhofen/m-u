@@ -1,8 +1,8 @@
-﻿var navLinks = ko.observableArray();
+var navLinks = ko.observableArray();
 var selectedBg = ko.observable();
 var vmBackgroundImgs = new VmBackgroundImgs();
 
-$(function () {
+$(function() {
     ko.applyBindings();
 
     BuildNavBar();
@@ -10,19 +10,19 @@ $(function () {
     BuildBackgroundImgs();
     GenerateRandomBackground();
 
-    $(".navLink").click(function () {
+    $(".navLink").click(function() {
         LoadPartial((this).id);
     });
 
     $('.titleText').on(
         {
-            mouseover: function () {
-                this.iid = setInterval(function () {
+            mouseover: function() {
+                this.iid = setInterval(function() {
                     var svgns = "http://www.w3.org/2000/svg";
                     var windowWidth = $(window).width(); //retrieve current window width
                     var ColorArray = new Array("#ffffff", "#aaaaaa", "#454545");
                     var x = Math.floor(Math.random() * windowWidth / 25) * 25,
-                    y = Math.floor(Math.random() * 10) * 25;
+                        y = Math.floor(Math.random() * 10) * 25;
 
                     var rect = document.createElementNS(svgns, 'rect');
                     rect.setAttributeNS(null, 'x', x);
@@ -33,7 +33,7 @@ $(function () {
                     document.getElementById('svgOne').appendChild(rect);
                 }, 10);
             },
-            mouseleave: function () {
+            mouseleave: function() {
                 this.iid && clearInterval(this.iid);
             }
         }
@@ -41,11 +41,11 @@ $(function () {
 
     $('.btnInfo').on(
         {
-            mouseover: function () {
+            mouseover: function() {
                 $('.lblInfo')[0].innerText = 'Current Background: ' + selectedBg().description;
                 $('.lblInfo').removeClass('hide');
             },
-            mouseleave: function () {
+            mouseleave: function() {
                 $('.lblInfo').addClass('hide');
             }
         }
@@ -53,28 +53,26 @@ $(function () {
 
     $('.closeAll').on(
         {
-            mouseover: function () {
+            mouseover: function() {
                 $('.lblInfo')[0].innerText = 'Show or hide everything on the page to view photos!';
                 $('.lblInfo').removeClass('hide');
             },
-            mouseleave: function () {
+            mouseleave: function() {
                 $('.lblInfo').addClass('hide');
             },
             click: function() {
                 ShowOrHide($('#content'));
                 ShowOrHide($('#banner'));
-                if($('#closeAllImg').hasClass('rotate')) {
+                if ($('#closeAllImg').hasClass('rotate')) {
                     $('#closeAllImg').removeClass('rotate')
-                }
-                else {
+                } else {
                     $('#closeAllImg').addClass('rotate');
                 }
             }
         }
     );
-})
+});
 
-<<<<<<< HEAD
 function ShowOrHide(element) {
     if (element.hasClass('hidden')) {
         element.show(500);
@@ -98,43 +96,18 @@ function BuildBackgroundImgs() {
     });
 }
 
-=======
 function GetLocationOrigin() {
     return !window.location.origin
         ? window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '')
         : window.location.origin;
 }
 
-function ShowOrHide(element) {
-    if (element.hasClass('hidden')) {
-        element.show(500);
-        element.removeClass('hidden');
-    }
-    else {
-        element.hide(500);
-        element.addClass('hidden');
-    }
-}
-
-function BuildBackgroundImgs() {
-   
-    $('#ddBgImages').ddslick({
-        data: vmBackgroundImgs.ddData(),
-        selectText: "Select background image",
-        onSelected: function (data) {
-            selectedBg(data.selectedData);
-            SetBackground(data.selectedData.imageSrc);
-        }
-    });
-}
-
->>>>>>> Commit minor UI and structural changes
 function SetBackground(src) {
     var splitUrl = src.split('thumbs/');
     fullImgSrc = splitUrl[0] + splitUrl[1];
     $('html').css('background', 'url(' + fullImgSrc + ') no-repeat center center fixed');
     $('html').css('background-size', 'cover');
-<<<<<<< HEAD
+
 }
 
 function GenerateRandomBackground() {
@@ -142,7 +115,6 @@ function GenerateRandomBackground() {
     var randomBg = vmBackgroundImgs.ddData()[Math.floor((Math.random() * totalBgs))];
     SetBackground(randomBg.imageSrc);
     selectedBg(randomBg);
-=======
 
     $('.lblInfo')[0].innerText = 'Current Background: ' + selectedBg().description;
     $('.lblInfo').removeClass('hide');
@@ -150,15 +122,6 @@ function GenerateRandomBackground() {
     setTimeout(function () {
         $('.lblInfo').addClass('hide');
     }, 3000);
-}
-
-function GenerateRandomBackground() {
-    var totalBgs = vmBackgroundImgs.ddData().length;
-    var randomBg = vmBackgroundImgs.ddData()[Math.floor((Math.random() * totalBgs))];
-    selectedBg(randomBg);
-    SetBackground(randomBg.imageSrc);
-
->>>>>>> Commit minor UI and structural changes
 }
 
 function BuildNavBar() {
@@ -190,11 +153,10 @@ function BuildNavBar() {
 function LoadPartial(navPath) {
 
     $('#content').hide();
-<<<<<<< HEAD
-    $('#content').load(window.location.pathname + '/Home/' + navPath, function () {
-=======
-    $('#content').load(GetLocationOrigin() + window.location.pathname + '/Home/' + navPath, function () {
->>>>>>> Commit minor UI and structural changes
+
+    $('#content').load(GetLocationOrigin() + window.location.pathname + '/Home/' + navPath, function() {
+
         $('#content').fadeIn(250);
+
     });
 }
